@@ -182,8 +182,8 @@ KINETIC kstates {
         ~ CC2 <-> D2 (Kdb*Q10,Kdbm*Q10) 
 	~ CC2 <-> C1 (Kf*Q10,Kfm*Q10) 
 	~ CC2 <-> C2 (Ks*Q10,Ksm*Q10)
-	~ C1 <-> O (Ks*Q10,Ksm*Q10) 
-	~ C2 <-> O (Kf*Q10,Kfm*Q10) 
+	~ C1 <-> O (Ks*Q10*0.1,Ksm*Q10) 
+	~ C2 <-> O (Kf*Q10*0.1,Kfm*Q10) 
 	
 	CONSERVE CC0+CC1+CC2+C1+C2+D1+D2+O = 1
 }
