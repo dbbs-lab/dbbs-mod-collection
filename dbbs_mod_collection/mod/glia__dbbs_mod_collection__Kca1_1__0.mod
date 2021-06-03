@@ -19,10 +19,9 @@ ENDCOMMENT
 
 NEURON {
 SUFFIX glia__dbbs_mod_collection__Kca1_1__0
-  USEION k READ ek WRITE ik
-  USEION ca READ cai
-  RANGE g, gbar, ik
-
+    USEION k READ ek WRITE ik
+    USEION ca READ cai
+    RANGE g, gbar, ik
 }
 
 UNITS {
@@ -143,7 +142,7 @@ KINETIC activation {
     ~ C3 <-> O3      (f3 , b3)
     ~ C4 <-> O4      (f4 , b4)
 
-CONSERVE C0 + C1 + C2 + C3 + C4 + O0 + O1 + O2 + O3 + O4 = 1
+    CONSERVE C0 + C1 + C2 + C3 + C4 + O0 + O1 + O2 + O3 + O4 = 1
 }
 
 PROCEDURE rates(v(mV), ca (mM)) {

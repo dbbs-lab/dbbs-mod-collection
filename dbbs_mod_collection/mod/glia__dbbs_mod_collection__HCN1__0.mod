@@ -8,25 +8,25 @@ ENDCOMMENT
 
 NEURON {
 SUFFIX glia__dbbs_mod_collection__HCN1__0
-	USEION h READ eh WRITE ih VALENCE 1
-	RANGE gbar, hinf,tauh,ratetau,ih
-	RANGE hinf,tauh,eh
+    USEION h READ eh WRITE ih VALENCE 1
+    RANGE gbar, hinf,tauh,ratetau,ih
+    RANGE hinf,tauh,eh
 }
 
 UNITS {
-	(mA) = (milliamp)
-	(mV) = (millivolt)
+    (mA) = (milliamp)
+    (mV) = (millivolt)
 }
 
 
 CONSTANT {
-	q10=3
+    q10=3
 }
 
 PARAMETER {
-    v 		(mV)
-    : eh  =-34.4	(mV)
-    gbar=.0001 	(mho/cm2)
+    v       (mV)
+    : eh  =-34.4    (mV)
+    gbar=.0001  (mho/cm2)
     ratetau = 1 (ms)
     rec_temp = 23 (deg) : we set it here at room temperature as in Angelo et al. they forogot tp mention the recording temperature
     ljp = 9.3 (mV) : liquid_junction_potential
