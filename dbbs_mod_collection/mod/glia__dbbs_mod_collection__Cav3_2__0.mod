@@ -5,14 +5,14 @@ TITLE Low threshold calcium current
 :   Differential equations
 :
 :   Model of Huguenard & McCormick, J Neurophysiol 68: 1373-1383, 1992.
-:   
+:
 :   Written by Alain Destexhe, Salk Institute, Sept 18, 1992
-:   
+:
 :    - Biophysical properties of the T current were from recordings of
 :    - human recombinant Cav3.2 T-channel in HEK-293 cells
 :    - see Vitko et al., J. Neurosci 25(19) :4844-4855, 2005
-:    - Q10 and shift parameters are fixed 
-:   
+:    - Q10 and shift parameters are fixed
+:
 :
 :   Suffix from CaT3_2 to Cav3_2
 
@@ -30,7 +30,7 @@ UNITS {
 	(mA) =	(milliamp)
 	(mM) =	(millimolar)
 
-	FARADAY = (faraday) (coulomb)
+    FARADAY = (faraday) (coulomb)
 	R = (k-mole) (joule/degC)
 }
 
@@ -91,7 +91,7 @@ INITIAL {
 	h = h_inf
 }
 
-PROCEDURE evaluate_fct(v(mV)) { 
+PROCEDURE evaluate_fct(v(mV)) {
 :
 
 	m_inf = 1.0 / ( 1 + exp(-(v+shift+54.8)/7.4) )

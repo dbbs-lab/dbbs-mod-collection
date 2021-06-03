@@ -37,7 +37,7 @@ UNITS {
     (pS) = (picosiemens)
     (um) = (micron)
     (molar) = (1/liter)
-    (mM) = (millimolar)     
+    (mM) = (millimolar)
 }
 
 CONSTANT {
@@ -84,7 +84,7 @@ INITIAL {
 
 BREAKPOINT {
     SOLVE states METHOD cnexp
-    
+
     ica = (1e3) * pcabar * m * m * m * gk
 }
 
@@ -93,10 +93,10 @@ DERIVATIVE states {
     m' = (minf-m)/taum
 }
 
-FUNCTION ghk( v (mV), ci (mM), co (mM), z )  (coulombs/cm3) { 
+FUNCTION ghk( v (mV), ci (mM), co (mM), z )  (coulombs/cm3) {
     E = (1e-3) * v
-      zeta = (z*F*E)/(R*T)  
-    
+    zeta = (z*F*E)/(R*T)
+
     if ( fabs(1-exp(-zeta)) < 1e-6 ) {
         ghk = (1e-6) * (z*F) * (ci - co*exp(-zeta)) * (1 + zeta/2)
     } else {
@@ -105,11 +105,8 @@ FUNCTION ghk( v (mV), ci (mM), co (mM), z )  (coulombs/cm3) {
 }
 
 PROCEDURE rates( v (mV) ) {
-
     minf = 1 / ( 1 + exp(-(v-vhalfm-vshift)/cvm) )
-
     taum = taumfkt(v-vshift)/qt
-    
     gk = ghk(v-vshift, cai, cao, 2)
 }
 

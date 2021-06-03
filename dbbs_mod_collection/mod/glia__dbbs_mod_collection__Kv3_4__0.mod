@@ -26,13 +26,13 @@ PARAMETER {
 
 	mivh = -24	(mV)
 	mik = 15.4	(1)
-	mty0 = .00012851 	
+	mty0 = .00012851
 	mtvh1 = 100.7	(mV)
 	mtk1 = 12.9	(1)
 	mtvh2 = -56.0	(mV)
 	mtk2 = -23.1	(1)
-	
-	hiy0 = .31	
+
+	hiy0 = .31
 	hiA = .69
 	hivh = -5.802	(mV)
 	hik = 11.2	(1)
@@ -46,7 +46,7 @@ ASSIGNED {
 	mtau		(ms)
 	hinf
 	htau		(ms)
-        qt
+    qt
 }
 
 STATE {
@@ -55,11 +55,10 @@ STATE {
 }
 
 INITIAL {
+	qt = q10^((celsius-37 (degC))/10 (degC))
 	rates(v)
 	m = minf
 	h = hinf
-
-	qt = q10^((celsius-37 (degC))/10 (degC))
 }
 
 BREAKPOINT {
@@ -76,7 +75,7 @@ DERIVATIVE states {
 PROCEDURE rates( Vm (mV)) {
 	LOCAL v
 	v = Vm + 11	: Account for Junction Potential
-	minf = 1/(1+exp(-(v-mivh)/mik)) 
+	minf = 1/(1+exp(-(v-mivh)/mik))
 	mtau = (1000) * mtau_func(v) /qt
 	hinf = hiy0 + hiA/(1+exp((v-hivh)/hik))
 	htau = 1000 * htau_func(v) / qt
@@ -97,4 +96,3 @@ FUNCTION htau_func(Vm (mV)) (ms) {
 		htau_func = 1.2202e-05 + .012 * exp(-((Vm-(-56.3))/49.6)^2)
 	}
 }
-	

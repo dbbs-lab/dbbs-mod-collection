@@ -3,27 +3,33 @@ TITLE CaV 3.3 CA3 hippocampal neuron
 
 COMMENT
     Cell model: CA3 hippocampal neuron
-    
+
     Created by jun xu @ Clancy Lab of Cornell University Medical College on 3/27/05
-    
-    Geometry: single-compartment model modified on 04/19/07 
+
+    Geometry: single-compartment model modified on 04/19/07
     Xu J, Clancy CE (2008) Ionic mechanisms of endogenous bursting in CA3 hippocampal pyramidal neurons: 
         a model study. PLoS ONE 3:e2056- [PubMed]
 
-ENDCOMMENT 
- 
- 
+ENDCOMMENT
+
+
  NEURON	{
 SUFFIX glia__dbbs_mod_collection__Cav3_3__0
-        : CaT--alpha 1I CaV3.3
-	USEION ca READ cai, cao WRITE ica
-	RANGE gCav3_3bar, pcabar, ica, tau_l, tau_n, n_inf, l_inf
+    : CaT--alpha 1I CaV3.3
+    USEION ca READ cai, cao WRITE ica
+    RANGE gCav3_3bar, pcabar, ica, tau_l, tau_n, n_inf, l_inf
 }
 
 UNITS	{
 	(S) = (siemens)
 	(mV) = (millivolt)
 	(mA) = (milliamp)
+}
+
+CONSTANT {
+  F = 96520 : Farady constant (coulomb/mol)
+  R = 8.3134 : gas constant (J/K.mol)
+  PI = 3.14
 }
 
 PARAMETER	{
@@ -35,9 +41,6 @@ PARAMETER	{
     q10 = 2.3
     pcabar = 0.0001 : cm/s to check!!!
     z= 2
-    F = 96520 : Farady constant (coulomb/mol)
-    R = 8.3134 : gas constant (J/K.mol)
-    PI = 3.14    
 }
 
 ASSIGNED	{
@@ -56,7 +59,7 @@ ASSIGNED	{
 	w
 }
 
-STATE	{ 
+STATE	{
 	n
 	l
 }
@@ -71,7 +74,7 @@ DERIVATIVE states	{
 	n' = (n_inf-n)/tau_n
 	l' = (l_inf-l)/tau_l
     }
-    
+
 INITIAL{
 	T = celsius+273.14
 	qt = pow(q10,(celsius-28)/10)
@@ -83,7 +86,7 @@ INITIAL{
 PROCEDURE rates(){
 	n_inf = 1/(1+exp(-(v-vhalfn)/kn))
 	l_inf = 1/(1+exp(-(v-vhalfl)/kl))
-	
+
         if (v > -60) {
             tau_n = (7.2+0.02*exp(-v/14.7))/qt
 	    tau_l = (79.5+2.0*exp(-v/9.3))/qt
@@ -91,7 +94,7 @@ PROCEDURE rates(){
             tau_n = (0.875*exp((v+120)/41))/qt
 	    tau_l = 260/qt
         }
-	
+
       w = v*0.001*z*F/(R*T)
-      ghk = -0.001*z*F*(cao-cai*exp(w))*w/(exp(w)-1)	
+      ghk = -0.001*z*F*(cao-cai*exp(w))*w/(exp(w)-1)
 }

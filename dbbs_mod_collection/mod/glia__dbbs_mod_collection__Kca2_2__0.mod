@@ -19,7 +19,7 @@ ENDCOMMENT
 NEURON{
 SUFFIX glia__dbbs_mod_collection__Kca2_2__0
 	USEION ca READ cai
-	USEION k READ ek WRITE ik 
+	USEION k READ ek WRITE ik
 	RANGE gkbar, g, ik, tcorr
 }
 
@@ -54,11 +54,11 @@ PARAMETER {
 
 }
 
-ASSIGNED{ 
-	v	(mV) 
-	ek	(mV) 
-	g	(mho/cm2) 
-	ik	(mA/cm2) 
+ASSIGNED {
+	v	(mV)
+	ek	(mV)
+	g	(mho/cm2)
+	ik	(mA/cm2)
 	invc1_t  ( /ms)
 	invc2_t  ( /ms)
 	invc3_t  ( /ms)
@@ -74,7 +74,7 @@ ASSIGNED{
 	dirc2_t_ca  ( /ms)
 	dirc3_t_ca  ( /ms)
 	dirc4_t_ca  ( /ms)
-} 
+}
 
 STATE {
 	c1
@@ -85,46 +85,46 @@ STATE {
 	o2
 }
 
-BREAKPOINT{ 
-	SOLVE kin METHOD sparse 
+BREAKPOINT{
+	SOLVE kin METHOD sparse
 	g = gkbar*(o1+o2)	:(mho/cm2)
 	ik = g*(v-ek)		:(mA/cm2)
-} 
+}
 
 INITIAL{
 	rate(celsius)
 	SOLVE kin STEADYSTATE sparse
-} 
+}
 
-KINETIC kin{ 
-	rates(cai/diff) 
-	~c1<->c2 (dirc2_t_ca, invc1_t) 
-	~c2<->c3 (dirc3_t_ca, invc2_t) 
-	~c3<->c4 (dirc4_t_ca, invc3_t) 
-	~c3<->o1 (diro1_t, invo1_t) 
-	~c4<->o2 (diro2_t, invo2_t) 
-	CONSERVE c1+c2+c3+c4+o2+o1=1 
-} 
+KINETIC kin{
+	rates(cai/diff)
+	~c1<->c2 (dirc2_t_ca, invc1_t)
+	~c2<->c3 (dirc3_t_ca, invc2_t)
+	~c3<->c4 (dirc4_t_ca, invc3_t)
+	~c3<->o1 (diro1_t, invo1_t)
+	~c4<->o2 (diro2_t, invo2_t)
+	CONSERVE c1+c2+c3+c4+o2+o1=1
+}
 
 FUNCTION temper (Q10, celsius (degC)) {
-	temper = Q10^((celsius -23(degC)) / 10(degC)) 
+	temper = Q10^((celsius -23(degC)) / 10(degC))
 }
 
 PROCEDURE rates(cai(mM)){
 	dirc2_t_ca = dirc2_t*cai
 	dirc3_t_ca = dirc3_t*cai
-	dirc4_t_ca = dirc4_t*cai 
-} 
+	dirc4_t_ca = dirc4_t*cai
+}
 
 PROCEDURE rate (celsius(degC)) {
 	tcorr = temper (Q10,celsius)
-	invc1_t = invc1*tcorr  
+	invc1_t = invc1*tcorr
 	invc2_t = invc2*tcorr
-	invc3_t = invc3*tcorr 
-	invo1_t = invo1*tcorr 
-	invo2_t = invo2*tcorr 
-	diro1_t = diro1*tcorr 
-	diro2_t = diro2*tcorr 
+	invc3_t = invc3*tcorr
+	invo1_t = invo1*tcorr
+	invo2_t = invo2*tcorr
+	diro1_t = diro1*tcorr
+	diro2_t = diro2*tcorr
 	dirc2_t = dirc2*tcorr
 	dirc3_t = dirc3*tcorr
 	dirc4_t = dirc4*tcorr
