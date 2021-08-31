@@ -132,6 +132,7 @@ BREAKPOINT {
 INITIAL {
 	qt = q10^((celsius-22 (degC))/10 (degC))
 	rates(v)
+    SOLVE activation STEADYSTATE sparse
 }
 
 KINETIC activation

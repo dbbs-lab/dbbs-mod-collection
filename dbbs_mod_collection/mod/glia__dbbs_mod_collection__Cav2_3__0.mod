@@ -20,25 +20,25 @@ UNITS {
 
 PARAMETER {              : parameters that can be entered when function is called in cell-setup
     v             (mV)
-    celsius = 34	(degC)
+    celsius
     gcabar = 0    (mho/cm2) : initialized conductance
-	  eca = 140     (mV)      : Ca++ reversal potential
 }  
 
 STATE {	m h }            : unknown activation and inactivation parameters to be solved in the DEs  
 
 ASSIGNED {               : parameters needed to solve DE
-	  ica    (mA/cm2)
+    eca
+	ica    (mA/cm2)
     inf[2]
-	  tau[2] (ms)
+	tau[2] (ms)
     g      (mho/cm2)
     gmax   (mho/cm2)
 }
 
 BREAKPOINT {
-	  SOLVE states METHOD cnexp
+	SOLVE states METHOD cnexp
     g = gcabar*m*m*m*h
-	  ica = g*(v - eca)
+	ica = g*(v - eca)
     if (g > gmax) {
         gmax = g
     }
@@ -78,31 +78,9 @@ FUNCTION vartau(v (mV), i) (ms) {
 	  
 }	
 
-PROCEDURE mhn(v (mV)) {LOCAL a, b :rest = -70
-    TABLE inf, tau DEPEND celsius FROM -100 TO 100 WITH 200
+PROCEDURE mhn(v (mV)) {
   	FROM i=0 TO 1 {
 	      tau[i] = vartau(v,i)
 		    inf[i] = varss(v,i)
 	  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

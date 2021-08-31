@@ -15,12 +15,17 @@ UNITS {
 	(mA) = (milliamp)
 	(mV) = (millivolt)
         (mM) = (milli/liter)
-	F = (faraday) (coulombs)
-	R 	= (k-mole)	(joule/degC)
+	:F = (faraday) (coulombs)
+	:R 	= (k-mole)	(joule/degC)
+}
+
+CONSTANT {
+	F = 9.6485e4 (coulombs)
+	R = 8.3145 (joule/kelvin)
 }
 
 PARAMETER {
-	 gKur=0.13195e-3 (S/cm2) <0,1e9>
+	gKur=0.13195e-3 (S/cm2) <0,1e9>
 	Tauact=1 (ms)
 	Tauinactf=1 (ms)
 	Tauinacts=1 (ms)
@@ -33,10 +38,10 @@ STATE {
 ASSIGNED {
 	v (mV)
 	celsius (degC) : 37
-       	ik (mA/cm2)
+    ik (mA/cm2)
 	minf ninf uinf
 	mtau (ms)
-        ntau (ms)
+    ntau (ms)
 	utau (ms)
 	ek (mV)
 	ino (mA/cm2)
@@ -49,27 +54,26 @@ ASSIGNED {
 INITIAL {
 	rates(v)
 	m = minf
-        n = ninf
+    n = ninf
 	u = uinf
 }
 
 BREAKPOINT { LOCAL z
 	z = (R*(celsius+273.15))/F
 	SOLVE states METHOD derivimplicit
-		ik = gKur*(0.1 + 1/(1 + exp(-(v - 15)/13)))*m*m*m*n*u*(v - ek)
+    ik = gKur*(0.1 + 1/(1 + exp(-(v - 15)/13)))*m*m*m*n*u*(v - ek)
 	ino=gnonspec*(0.1 + 1/(1 + exp(-(v - 15)/13)))*m*m*m*n*u*(v - z*log((nao+ko)/(nai+ki)))
 }
 
 DERIVATIVE states {	: exact when v held constant
 	rates(v)
 	m' = (minf - m)/mtau
-        n' = (ninf - n)/ntau
+    n' = (ninf - n)/ntau
 	u' = (uinf - u)/utau
 }
 
 UNITSOFF
 FUNCTION alp(v(mV),i) { LOCAL q10 : order m n
-	v = v
 	q10 = 2.2^((celsius - 37)/10)
        if (i==0) {
 	          alp = q10*0.65/(exp(-(v + 10)/8.5) + exp(-(v - 30)/59))
@@ -80,7 +84,6 @@ FUNCTION alp(v(mV),i) { LOCAL q10 : order m n
 }
 
 FUNCTION bet(v(mV),i) (/ms) { LOCAL q10 : order m n u
-	v = v 
 	q10 = 2.2^((celsius - 37)/10)
         if (i==0){
 	         bet = q10*0.65/(2.5 + exp((v + 82)/17))
@@ -90,7 +93,6 @@ FUNCTION bet(v(mV),i) (/ms) { LOCAL q10 : order m n u
 }
                 
 FUNCTION ce(v(mV),i)(/ms) {   :  order m n u 
-        v = v
        
         if (i==0) {
                 ce = 1/(1 + exp(-(v + 30.3)/9.6))
@@ -105,14 +107,18 @@ FUNCTION ce(v(mV),i)(/ms) {   :  order m n u
 
 PROCEDURE rates(v) {LOCAL a,b,c :
 	
-		a = alp(v,0)  b=bet(v,0) c = ce(v,0)
-		mtau = 1/(a + b)/3*Tauact
-		minf = c
-               a = alp(v,1)  b=bet(v,1) c = ce(v,1)
-		ntau = 1/(a + b)/3*Tauinactf
-		ninf = c
-		c = ce(v,2)
-		uinf = c
-		utau = 6800*Tauinacts
+	a = alp(v, 0)
+	b = bet(v, 0)
+	c = ce(v, 0)
+	mtau = 1/(a + b)/3*Tauact
+	minf = c
+	a = alp(v, 1)
+	b = bet(v, 1)
+	c = ce(v, 1)
+	ntau = 1/(a + b)/3*Tauinactf
+	ninf = c
+	c = ce(v,2)
+	uinf = c
+	utau = 6800*Tauinacts
 }
 UNITSON

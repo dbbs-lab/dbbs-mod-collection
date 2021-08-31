@@ -44,9 +44,8 @@ CONSTANT {
 PARAMETER {
         v               (mV)
         celsius (degC)
-        eca (mV)
 	pcabar  = 2.5e-4 (cm/s)
-        cai  (mM)           : adjusted for eca=120 mV
+        cai  (mM)
 	cao  (mM)
 	
 	v0_m_inf = -52 (mV)
