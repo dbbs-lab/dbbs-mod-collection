@@ -245,7 +245,6 @@ INITIAL {
 	pumpca = 0
 	
 	cai = ca
-        
 }
 
 PROCEDURE factors() {

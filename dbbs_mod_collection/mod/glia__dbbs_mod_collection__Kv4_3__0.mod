@@ -48,7 +48,7 @@ PARAMETER {
     K_binf = 8.4 (mV)
     v (mV)
     gkbar= 0.0032 (mho/cm2) :0.003
-    celsius = 30 (degC)
+    celsius
 }
 
 STATE {
