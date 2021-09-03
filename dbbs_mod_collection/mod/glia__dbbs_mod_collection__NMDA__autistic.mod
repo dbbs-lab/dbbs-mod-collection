@@ -158,10 +158,10 @@ BREAKPOINT {
 	: E' piu' logico spostare * MgBlock * PRE sul calcolo della corrente!
 	i = (1e-6) * g * (v - Erev) * MgBlock
 	ic = i
-    }
+}
 
 KINETIC kstates {
-	Trelease = diffusione()
+	Trelease = diffusione(difwave_init)
 	rb = Rb * Trelease	:^2 / (Trelease + kB)^2
 	~ C0 <-> C1	(rb*Q10,Ru*Q10) 	: (fattore*rb,Ru) qui 2* per descrizione part.identiche
 	~ C1 <-> C2	(rb*Q10,Ru*Q10)		: (rb,fattore*Ru)	idem
