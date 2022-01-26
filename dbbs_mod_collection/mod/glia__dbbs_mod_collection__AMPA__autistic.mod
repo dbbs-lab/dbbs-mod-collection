@@ -72,6 +72,7 @@ UNITS {
 	nd			= 1
 
 	celsius (degC)
+	difwave_init = 0
 
 }
 
@@ -137,9 +138,9 @@ INITIAL {
 	    else { imax=b }
 	}
 
-FUNCTION diffusione(){
+FUNCTION diffusione(difwave_init){
 	LOCAL DifWave,i,cntc,fi,aaa
-	DifWave=0
+	DifWave=difwave_init
 	cntc=imax(numpulses-100,0)
 	FROM i=cntc  TO numpulses{
 	    :printf ("%g %g  ",numpulses,fmod(numpulses,10))
@@ -165,7 +166,7 @@ FUNCTION diffusione(){
 
 BREAKPOINT {
 
-	if ( diffuse && (t>tspike[0]) ) { Trelease= T + diffusione() } else { Trelease=T }
+	if ( diffuse && (t>tspike[0]) ) { Trelease= T + diffusione(difwave_init) } else { Trelease=T }
 
 	SOLVE kstates METHOD sparse
 	g = gmax * gbar_Q10 * O
@@ -174,6 +175,7 @@ BREAKPOINT {
 }
 
 KINETIC kstates {
+	Trelease = diffusione(difwave_init)
 	r1 = r1FIX * Trelease^2 / (Trelease + kB)^2
 	r6 = r6FIX * Trelease^2 / (Trelease + kB)^2
 	~ C  <-> O	(r1*Q10,r2*Q10)
