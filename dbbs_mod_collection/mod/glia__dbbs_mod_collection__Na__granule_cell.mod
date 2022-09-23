@@ -8,7 +8,7 @@ NEURON {
 SUFFIX glia__dbbs_mod_collection__Na__granule_cell
 	USEION na READ ena WRITE ina
 	RANGE gnabar, ina, g
-	RANGE alfa, beta, gamma, delta, epsilon, teta, Con, Coff, Oon, Ooff
+	RANGE gamma, delta, epsilon, Con, Coff, Oon, Ooff
 	RANGE Aalfa, Valfa, Abeta, Vbeta, Ateta, Vteta, Agamma, Adelta, Aepsilon, ACon, ACoff, AOon, AOoff
 	RANGE n1,n2,n3,n4, alpha_d, beta_d, teta_d
 }
