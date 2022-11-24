@@ -27,6 +27,6 @@ setuptools.setup(
       'glia.package': ['dbbs_mod_collection = dbbs_mod_collection']
      },
      install_requires=[
-      "nrn-glia>=0.1.1"
+      "nrn-glia>=4.0.0a0"
      ]
  )
