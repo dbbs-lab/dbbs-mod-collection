@@ -17,7 +17,8 @@ UNITS {
 }
 
 INDEPENDENT {
-t}
+    t FROM 0 TO 1 WITH 1 (ms)
+}
 
 CONSTANT {
     q10 = 3

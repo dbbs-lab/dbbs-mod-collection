@@ -20,7 +20,8 @@ Contact: Sungho Hong (shhong@oist.jp)
 ENDCOMMENT
 
 INDEPENDENT {
-t}
+    t FROM 0 TO 1 WITH 1 (ms)
+}
 
 NEURON {
     SUFFIX glia__dbbs_mod_collection__Cav2_1__0

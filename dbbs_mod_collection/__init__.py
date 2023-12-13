@@ -10,7 +10,7 @@ and NEURON brain simulation engines.
 from pathlib import Path
 from glia import Package, Mod
 
-__version__ = "4.0.0b0"
+__version__ = "4.0.0b1"
 package = Package(
     "dbbs_mod_collection",
     Path(__file__).resolve().parent,
